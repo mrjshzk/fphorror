@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="UserPreferences" load_steps=2 format=3 uid="uid://tc32qh7x83k0"]
+
+[ext_resource type="Script" path="res://scenes/resources/UserPreferences.gd" id="1_c2ett"]
+
+[resource]
+script = ExtResource("1_c2ett")
+fullscreen = false
+sound_volume = 0.210526
+sensitivity_x = 1.0
+invert_x = false
+sensitivity_y = 1.0
+invert_y = false

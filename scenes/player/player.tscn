@@ -1,0 +1,79 @@
+[gd_scene load_steps=12 format=3 uid="uid://l53288gtqofx"]
+
+[ext_resource type="Script" path="res://scenes/player/player_character.gd" id="1_47ku8"]
+[ext_resource type="Script" path="res://scenes/player/player_camera.gd" id="2_2qfw2"]
+[ext_resource type="Script" path="res://scenes/player/PauseComponent.gd" id="3_ai0ff"]
+[ext_resource type="PackedScene" uid="uid://c45h1hwtp0nlb" path="res://scenes/ui/pause_menu/pause_menu.tscn" id="4_j7icc"]
+[ext_resource type="Shader" path="res://shaders/weapon_clipping_fix.gdshader" id="5_4iaid"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_nrcec"]
+margin = 0.01
+height = 1.8
+radius = 0.3
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nvrkt"]
+albedo_color = Color(0, 0.87849, 0.552806, 1)
+emission = Color(0, 0.878431, 0.552941, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_eafe4"]
+material = SubResource("StandardMaterial3D_nvrkt")
+top_radius = 0.3
+bottom_radius = 0.3
+height = 1.8
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_b7uyo"]
+height = 0.1
+radius = 0.3
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4o0o7"]
+render_priority = 0
+shader = ExtResource("5_4iaid")
+shader_parameter/FOV = 70.0
+shader_parameter/albedo = Color(1, 1, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_dv0sh"]
+material = SubResource("ShaderMaterial_4o0o7")
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_47ku8")
+
+[node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("body")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.67, 0)
+current = true
+script = ExtResource("2_2qfw2")
+body = NodePath("..")
+
+[node name="RemoteTransform3D" type="RemoteTransform3D" parent="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.584426, -0.5, -0.852288)
+remote_path = NodePath("../../ItemPosition")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CylinderShape3D_nrcec")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+visible = false
+cast_shadow = 0
+mesh = SubResource("CylinderMesh_eafe4")
+
+[node name="ShapeCast3D" type="ShapeCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.85, 0)
+shape = SubResource("CylinderShape3D_b7uyo")
+debug_shape_custom_color = Color(0, 1, 0, 1)
+
+[node name="PauseComponent" type="Node" parent="."]
+script = ExtResource("3_ai0ff")
+
+[node name="PauseMenu" parent="PauseComponent" instance=ExtResource("4_j7icc")]
+visible = false
+
+[node name="InteractComponent" type="Node" parent="."]
+
+[node name="ItemPosition" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.584426, 1.17, -0.852288)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="ItemPosition"]
+transform = Transform3D(0.15, 0, 0, 0, 0.598698, 0.134552, 0, -1.215, 0.066301, 0, 0, 0)
+mesh = SubResource("BoxMesh_dv0sh")
+skeleton = NodePath("../..")

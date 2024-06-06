@@ -1,0 +1,98 @@
+[gd_scene load_steps=3 format=3 uid="uid://c45h1hwtp0nlb"]
+
+[ext_resource type="Script" path="res://scenes/ui/pause_menu/pause_menu.gd" id="1_cb2wn"]
+[ext_resource type="Theme" uid="uid://byklgp83qr8he" path="res://scenes/ui/ui_theme.tres" id="1_cbwft"]
+
+[node name="PauseMenu" type="PanelContainer"]
+process_mode = 2
+self_modulate = Color(0, 0, 0, 0.690196)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_cbwft")
+script = ExtResource("1_cb2wn")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+custom_minimum_size = Vector2(320, 240)
+layout_mode = 2
+
+[node name="Main" type="VBoxContainer" parent="CenterContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(320, 240)
+layout_mode = 2
+alignment = 1
+
+[node name="Resume" type="Button" parent="CenterContainer/Main"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../OpenOptions")
+focus_next = NodePath("../OpenOptions")
+focus_previous = NodePath("../Quit")
+text = "Resume"
+
+[node name="OpenOptions" type="Button" parent="CenterContainer/Main"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_neighbor_top = NodePath("../Resume")
+focus_neighbor_bottom = NodePath("../Quit")
+focus_next = NodePath("../Quit")
+focus_previous = NodePath("../Resume")
+text = "Options"
+
+[node name="Quit" type="Button" parent="CenterContainer/Main"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_neighbor_top = NodePath("../OpenOptions")
+focus_next = NodePath("../Resume")
+focus_previous = NodePath("../OpenOptions")
+text = "Quit"
+text_direction = 1
+language = "en_US"
+
+[node name="Options" type="VBoxContainer" parent="CenterContainer"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(320, 240)
+layout_mode = 2
+alignment = 1
+
+[node name="Fullscreen" type="HBoxContainer" parent="CenterContainer/Options"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="CenterContainer/Options/Fullscreen"]
+layout_mode = 2
+text = "Fullscreen"
+
+[node name="VSeparator" type="VSeparator" parent="CenterContainer/Options/Fullscreen"]
+layout_mode = 2
+
+[node name="CheckBox" type="CheckBox" parent="CenterContainer/Options/Fullscreen"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="CenterContainer/Options"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/Options"]
+layout_mode = 2
+text = "Volume"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VolumeSlider" type="HSlider" parent="CenterContainer/Options"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.0
+
+[node name="HSeparator2" type="HSeparator" parent="CenterContainer/Options"]
+layout_mode = 2
+
+[node name="OptionsBack" type="Button" parent="CenterContainer/Options"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Back"

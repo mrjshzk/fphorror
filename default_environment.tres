@@ -1,0 +1,23 @@
+[gd_resource type="Environment" load_steps=4 format=3 uid="uid://6palwc71gq8y"]
+
+[ext_resource type="Texture2D" uid="uid://bpc2fpm5jhx22" path="res://assets/hdris/kloppenheim_07_puresky_2k.hdr" id="1_m5md3"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_a845l"]
+panorama = ExtResource("1_m5md3")
+
+[sub_resource type="Sky" id="Sky_01rpv"]
+sky_material = SubResource("PanoramaSkyMaterial_a845l")
+
+[resource]
+background_mode = 2
+sky = SubResource("Sky_01rpv")
+sky_rotation = Vector3(-3.14159, 0, 0)
+ambient_light_source = 3
+reflected_light_source = 2
+tonemap_mode = 3
+tonemap_white = 4.0
+ssao_enabled = true
+sdfgi_enabled = true
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.01
+volumetric_fog_anisotropy = 0.9
