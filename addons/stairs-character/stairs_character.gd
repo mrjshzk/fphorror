@@ -86,6 +86,7 @@ func stair_step_up() -> void:
 	
 	var result = PhysicsTestMotionResult3D.new()
 	var parameters = PhysicsTestMotionParameters3D.new()
+	parameters.exclude_bodies = get_exclude_nodes()
 	parameters.margin = _collider_margin
 	
 	# This variable gets reused for all the following checks
@@ -135,3 +136,10 @@ func stair_step_up() -> void:
 
 	# Move player to match the step height we just found
 	global_position.y = motion_transform.origin.y;
+
+func get_exclude_nodes() -> Array[RID]:
+	var nodes_arr = get_tree().get_nodes_in_group("ExcludeStairStep")
+	var rid_arr : Array[RID]
+	for node in nodes_arr:
+		rid_arr.push_back(node.get_rid())
+	return rid_arr

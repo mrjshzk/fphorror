@@ -19,11 +19,13 @@ config/icon="res://icon.svg"
 
 Utils="*res://scenes/autoloads/utils.gd"
 AudioSetter="*res://scenes/autoloads/audio_setter.gd"
+GlobalSignals="*res://scenes/autoloads/global_signals.gd"
 
 [display]
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
+window/size/always_on_top=true
 window/stretch/mode="viewport"
 
 [input]
@@ -64,6 +66,12 @@ pause={
 locale/locale_filter_mode=0
 locale/country_filter=["US"]
 
+[layer_names]
+
+3d_physics/layer_1="General"
+3d_physics/layer_2="Items"
+3d_physics/layer_3="Doors"
+
 [maaacks_menus_template]
 
 disable_plugin_dialogues=true
@@ -77,4 +85,3 @@ textures/default_filters/use_nearest_mipmap_filter=true
 textures/decals/filter=0
 textures/light_projectors/filter=0
 anti_aliasing/quality/msaa_3d=1
-environment/defaults/default_environment="res://default_environment.tres"

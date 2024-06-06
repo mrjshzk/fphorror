@@ -1,6 +1,8 @@
 class_name FPSCamera extends Camera3D
 
 
+@onready var prefs := UserPreferences.create_or_load()
+
 @export_category("General Settings")
 @export var body : Node3D
 
@@ -16,13 +18,12 @@ class_name FPSCamera extends Camera3D
 
 # accumulators
 @onready var rot_x = body.rotation.y
-@onready var rot_y = 0
+@onready var rot_y = self.rotation.x
 
 
 @onready var body_target_basis : Basis = body.basis
 @onready var self_target_basis : Basis = self.basis
 
-@onready var prefs := UserPreferences.create_or_load()
 
 func _ready():
 	assert(body != null, "body is null")

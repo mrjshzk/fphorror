@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://ceqpp14b78eqx"]
+[gd_scene load_steps=9 format=3 uid="uid://ceqpp14b78eqx"]
 
 [ext_resource type="PackedScene" uid="uid://l53288gtqofx" path="res://scenes/player/player.tscn" id="1_blhnu"]
+[ext_resource type="PackedScene" uid="uid://dpsun5igy1aad" path="res://scenes/testing/interactable.tscn" id="2_aeos3"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_nhrgu"]
 size = Vector2(50, 50)
@@ -107,3 +108,6 @@ mesh = SubResource("BoxMesh_ka51s")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D8/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_pg8ob")
+
+[node name="Interactable" parent="." instance=ExtResource("2_aeos3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.36617, 2.85021, 0.557133)
