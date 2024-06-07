@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://l53288gtqofx"]
+[gd_scene load_steps=11 format=3 uid="uid://l53288gtqofx"]
 
 [ext_resource type="Script" path="res://scenes/player/player_character.gd" id="1_47ku8"]
 [ext_resource type="Script" path="res://scenes/player/player_camera.gd" id="2_2qfw2"]
-[ext_resource type="Script" path="res://scenes/player/PauseComponent.gd" id="3_ai0ff"]
+[ext_resource type="Script" path="res://scenes/player/interact.gd" id="3_2f1aa"]
+[ext_resource type="Script" path="res://scenes/player/components/PauseComponent.gd" id="3_ai0ff"]
 [ext_resource type="PackedScene" uid="uid://c45h1hwtp0nlb" path="res://scenes/ui/pause_menu/pause_menu.tscn" id="4_j7icc"]
-[ext_resource type="Script" path="res://scenes/player/SaveManager.gd" id="6_payh0"]
+[ext_resource type="Script" path="res://scenes/player/components/SaveManager.gd" id="6_payh0"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_nrcec"]
 margin = 0.01
@@ -22,10 +23,11 @@ bottom_radius = 0.3
 height = 1.8
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_b7uyo"]
-height = 0.1
+margin = 0.01
+height = 0.3
 radius = 0.3
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" groups=["Player"]]
 script = ExtResource("1_47ku8")
 
 [node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("body")]
@@ -34,13 +36,10 @@ current = true
 script = ExtResource("2_2qfw2")
 body = NodePath("..")
 
-[node name="RemoteTransform3D" type="RemoteTransform3D" parent="Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.584426, -0.5, -0.852288)
-remote_path = NodePath("../../ItemPosition")
-
 [node name="RayCast3D" type="RayCast3D" parent="Camera3D"]
 target_position = Vector3(0, 0, -2)
 collision_mask = 2
+script = ExtResource("3_2f1aa")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
@@ -53,7 +52,7 @@ cast_shadow = 0
 mesh = SubResource("CylinderMesh_eafe4")
 
 [node name="ShapeCast3D" type="ShapeCast3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.85, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.95, 0)
 shape = SubResource("CylinderShape3D_b7uyo")
 debug_shape_custom_color = Color(0, 1, 0, 1)
 
@@ -68,6 +67,9 @@ visible = false
 [node name="ItemPosition" type="Marker3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.584426, 1.17, -0.852288)
+
+[node name="RemoteTransform" type="RemoteTransform3D" parent="ItemPosition"]
+unique_name_in_owner = true
 
 [node name="SaveManager" type="Node" parent="." node_paths=PackedStringArray("player", "camera")]
 script = ExtResource("6_payh0")

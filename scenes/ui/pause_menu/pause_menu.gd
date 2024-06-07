@@ -34,9 +34,9 @@ func toggle_pause() -> void:
 	if self.visible:
 		get_tree().paused = true
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		show_pause()
 
 func unpause() -> void:
-	print("unpause")
 	self.hide()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	get_tree().set_deferred("paused", false)
@@ -45,14 +45,15 @@ func unpause() -> void:
 func show_options() -> void:
 	main.hide()
 	options.show()
+	back_button.grab_focus()
 
 func show_pause() -> void:
 	options.hide()
 	main.show()
+	resume_button.grab_focus()
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("pause"):
-		print("should unpause")
 		unpause()
 
 func quit_game() -> void:

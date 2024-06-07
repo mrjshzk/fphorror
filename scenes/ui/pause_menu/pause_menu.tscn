@@ -20,6 +20,7 @@ layout_mode = 2
 
 [node name="Main" type="VBoxContainer" parent="CenterContainer"]
 unique_name_in_owner = true
+visible = false
 custom_minimum_size = Vector2(320, 240)
 layout_mode = 2
 alignment = 1
@@ -53,7 +54,6 @@ language = "en_US"
 
 [node name="Options" type="VBoxContainer" parent="CenterContainer"]
 unique_name_in_owner = true
-visible = false
 custom_minimum_size = Vector2(320, 240)
 layout_mode = 2
 alignment = 1
@@ -72,6 +72,9 @@ layout_mode = 2
 [node name="CheckBox" type="CheckBox" parent="CenterContainer/Options/Fullscreen"]
 unique_name_in_owner = true
 layout_mode = 2
+focus_neighbor_bottom = NodePath("../../VolumeSlider")
+focus_next = NodePath("../../VolumeSlider")
+focus_previous = NodePath("../../OptionsBack")
 
 [node name="HSeparator" type="HSeparator" parent="CenterContainer/Options"]
 layout_mode = 2
@@ -86,6 +89,10 @@ vertical_alignment = 1
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 4
+focus_neighbor_top = NodePath("../Fullscreen/CheckBox")
+focus_neighbor_bottom = NodePath("../OptionsBack")
+focus_next = NodePath("../OptionsBack")
+focus_previous = NodePath("../Fullscreen/CheckBox")
 max_value = 1.0
 step = 0.0
 
@@ -95,4 +102,7 @@ layout_mode = 2
 [node name="OptionsBack" type="Button" parent="CenterContainer/Options"]
 unique_name_in_owner = true
 layout_mode = 2
+focus_neighbor_top = NodePath("../VolumeSlider")
+focus_next = NodePath("../Fullscreen/CheckBox")
+focus_previous = NodePath("../VolumeSlider")
 text = "Back"

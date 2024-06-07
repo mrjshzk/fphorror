@@ -1,4 +1,3 @@
 extends Node
 
-signal save_game()
-signal reset_game_save()
+signal item_picked_up()

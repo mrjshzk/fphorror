@@ -17,7 +17,7 @@ func _physics_process(delta: float) -> void:
 		velocity.y -= gravity * delta
 
 	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+	if Input.is_action_just_pressed("jump") and is_on_floor() and not shapecast.is_colliding():
 		velocity.y = JUMP_VELOCITY
 	
 	handle_crouch()
@@ -38,7 +38,7 @@ func _physics_process(delta: float) -> void:
 
 func handle_crouch() -> void:
 	var crouching := Input.is_action_pressed("crouch")
-	if crouching:
+	if crouching and is_on_floor():
 		collider.shape.height -= get_physics_process_delta_time() * 5
 	elif not shapecast.is_colliding():
 		collider.shape.height += get_physics_process_delta_time() * 2

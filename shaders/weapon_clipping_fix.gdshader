@@ -2,7 +2,7 @@
 shader_type spatial;
 
 // specifies the field of view angle in degrees
-uniform float FOV : hint_range(0.0, 180.0) = 70.0;
+global uniform float fov;
 
 // sets the base color of the material
 uniform vec4 albedo : source_color = vec4(1.0);
@@ -12,7 +12,7 @@ uniform sampler2D texture_albedo : source_color, filter_nearest, repeat_enable;
 // transforms vertex positions and sets up projection matrix
 void vertex() {
     // calculate tangent of half the FOV angle
-    float onetanfov = 1.0f / tan(.5f * (FOV * PI / 180.0f));
+    float onetanfov = 1.0f / tan(.5f * (fov * PI / 180.0f));
     // calculate aspect ratio based on viewport size
     float aspect = VIEWPORT_SIZE.x / VIEWPORT_SIZE.y;
     // modify the projection matrix to adjust FOV

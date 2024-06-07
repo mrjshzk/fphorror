@@ -1,9 +1,9 @@
 class_name FPSCamera extends Camera3D
 
-
+@onready var save := GameSave.create_or_load()
 @onready var prefs := UserPreferences.create_or_load()
 
-@export_category("General Settings")
+
 @export var body : Node3D
 
 # sensitivity options and invert
@@ -13,42 +13,38 @@ class_name FPSCamera extends Camera3D
 @export var sensitivity_y: float = 0.005
 @export var invert_x: bool = false
 @export var invert_y: bool = false
-@export var side_rotation_speed := 0.5
-@export_range(0, 90, 1) var side_rotation_angle := 5
 
 # accumulators
-@onready var rot_x = body.rotation.y
-@onready var rot_y = self.rotation.x
-
+@onready var rot_x = save.player_rotation_y
+@onready var rot_y = save.camera_rotation_x:
+	set(val):
+		rot_y = clampf(val, deg_to_rad(-85), deg_to_rad(85))
 
 @onready var body_target_basis : Basis = body.basis
 @onready var self_target_basis : Basis = self.basis
 
-
 func _ready():
 	assert(body != null, "body is null")
-	
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	Input.use_accumulated_input = false
+	rotate_basis.call_deferred()
 
 func _input(event):
-	if event is InputEventMouseMotion and can_rotate and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+	if not can_rotate and not Input.mouse_mode == Input.MOUSE_MODE_CAPTURED: return
+	if event is InputEventMouseMotion:
 		# modify accumulated mouse rotation
-		rot_x += event.relative.x * (0.005 * Utils.bool_to_one(prefs.invert_x))
-		rot_y += event.relative.y * (0.005 * Utils.bool_to_one(prefs.invert_y))
-		
-		rot_y = clampf(rot_y, deg_to_rad(-85), deg_to_rad(85)) # clamp up and down rotation
+		rot_x += event.relative.x * 0.005 * Utils.bool_to_one(prefs.invert_x) * prefs.sensitivity_x 
+		rot_y += event.relative.y * 0.005 * Utils.bool_to_one(prefs.invert_y) * prefs.sensitivity_y
 
-		body.transform.basis = Basis()
-		transform.basis = Basis()
-		body.rotate_object_local(Vector3(0,1,0), rot_x)
-		rotate_object_local(Vector3(1,0,0), rot_y)
+func _physics_process(_delta: float) -> void:
+	var controller_motion := Input.get_vector("look_up", "look_down", "look_left", "look_right")
+	
+	rot_x += controller_motion.y * 0.1 * prefs.sensitivity_x * Utils.bool_to_one(prefs.invert_x)
+	rot_y += controller_motion.x * 0.1 * prefs.sensitivity_y * Utils.bool_to_one(prefs.invert_y)
+	rotate_basis()
 
-
-
-
-func handle_side_rotation() -> void:
-	var horizontal_input = Input.get_axis("move_left", "move_right")
-	rotation.z += -int(horizontal_input) * side_rotation_speed * get_process_delta_time()
-	rotation.z = clampf(rotation.z, deg_to_rad(-side_rotation_angle), deg_to_rad(side_rotation_angle))
-
+func rotate_basis() -> void:
+	body.transform.basis = Basis()
+	transform.basis = Basis()
+	body.rotate_object_local(Vector3(0,1,0), rot_x)
+	rotate_object_local(Vector3(1,0,0), rot_y)

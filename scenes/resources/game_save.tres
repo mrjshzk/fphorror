@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="GameSave" load_steps=2 format=3]
 
-[ext_resource type="Script" path="res://scenes/resources/GameSave.gd" id="1_61140"]
+[ext_resource type="Script" path="res://scenes/resources/GameSave.gd" id="1_dq0cg"]
 
 [resource]
-script = ExtResource("1_61140")
-player_global_position = Vector3(4.24556, 0.000941434, 1.07776)
-camera_rotation_x = -0.61
-player_rotation_y = -1.495
+script = ExtResource("1_dq0cg")
+player_global_position = Vector3(2.71789, 0.000942287, 0.16924)
+camera_rotation_x = -0.56647
+player_rotation_y = -12.18
 collider_height = 1.8

@@ -26,7 +26,10 @@ func _on_node_added(node: Node):
 	if node is Button:
 		node.mouse_entered.connect(_play_hover)
 		node.pressed.connect(_play_pressed)
-
+		node.focus_entered.connect(_play_hover)
+		node.focus_entered.connect(func(): node.shortcut = load("res://scenes/ui/button_controller_shortcut.tres"))
+		node.focus_exited.connect(func(): node.shortcut = null)
+		
 
 func _play_hover() -> void:
 	playback.play_stream(hover_sound, 0, 0, randf_range(0.9, 1.1))
