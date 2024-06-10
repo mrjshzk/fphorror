@@ -9,7 +9,7 @@ class_name StairsCharacter
 
 # Holds the margin from the player's collider
 # Collider margin should be as low as you can get it without snagging on edges.
-@onready var collider : CollisionShape3D
+@export var collider : CollisionShape3D
 var _collider_margin : float
 
 # We don't want to take the player's vertical speed into account, usually
@@ -46,9 +46,7 @@ func move_and_stair_step():
 func _ready() -> void:
 	# Only requirement for your player is that it has a collider shape
 	# called "Collider". Replace with an exported node variable if you want.
-	for child in self.get_children():
-		if child is CollisionShape3D:
-			collider = child
+
 	_collider_margin = collider.shape.margin;
 	if _collider_margin > .01:
 		push_warning("Margin on player's collider shape is over 0.01, may snag on stair steps")
@@ -163,5 +161,5 @@ func _push_away_rigid_bodies():
 			# Don't push object from above/below
 			push_dir.y = 0
 			# 5.0 is a magic number, adjust to your needs
-			var push_force = mass_ratio * 2.0
+			var push_force = mass_ratio * 5.0
 			c.get_collider().apply_impulse(push_dir * velocity_diff_in_push_dir * push_force, c.get_position() - c.get_collider().global_position)

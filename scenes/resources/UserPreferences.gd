@@ -14,7 +14,7 @@ const path : StringName = &"user://user_preferences.tres"
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 
 @export_category("Audio Preferences")
-@export_range(0.0, 1.0) var sound_volume := 1.0:
+@export_range(0.0, 1.0) var sound_volume := 0.3:
 	set(volume):
 		sound_volume = volume
 		AudioServer.set_bus_volume_db(0, linear_to_db(sound_volume))

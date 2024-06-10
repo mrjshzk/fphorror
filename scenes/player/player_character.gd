@@ -9,7 +9,6 @@ const JUMP_VELOCITY = 4.5
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
-
 func _physics_process(delta: float) -> void:
 	super(delta)
 	# Add the gravity.
@@ -44,4 +43,5 @@ func handle_crouch() -> void:
 		collider.shape.height += get_physics_process_delta_time() * 2
 	
 	collider.shape.height = clampf(collider.shape.height, 0.9, 1.8)
+
 

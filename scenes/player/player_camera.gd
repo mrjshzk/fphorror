@@ -33,15 +33,21 @@ func _input(event):
 	if not can_rotate and not Input.mouse_mode == Input.MOUSE_MODE_CAPTURED: return
 	if event is InputEventMouseMotion:
 		# modify accumulated mouse rotation
-		rot_x += event.relative.x * 0.005 * Utils.bool_to_one(prefs.invert_x) * prefs.sensitivity_x 
-		rot_y += event.relative.y * 0.005 * Utils.bool_to_one(prefs.invert_y) * prefs.sensitivity_y
+		add_rot_x(event.relative.x, 0.005)
+		add_rot_y(event.relative.y, 0.005)
 
 func _physics_process(_delta: float) -> void:
 	var controller_motion := Input.get_vector("look_up", "look_down", "look_left", "look_right")
 	
-	rot_x += controller_motion.y * 0.1 * prefs.sensitivity_x * Utils.bool_to_one(prefs.invert_x)
-	rot_y += controller_motion.x * 0.1 * prefs.sensitivity_y * Utils.bool_to_one(prefs.invert_y)
+	add_rot_x(controller_motion.y, 0.1)
+	add_rot_y(controller_motion.x, 0.1)
 	rotate_basis()
+
+func add_rot_x(val: float, sens_override: float) -> void:
+	rot_x += val * sens_override * prefs.sensitivity_x * Utils.bool_to_one(prefs.invert_x)
+	
+func add_rot_y(val: float, sens_override: float) -> void:
+	rot_y += val * sens_override * prefs.sensitivity_x * Utils.bool_to_one(prefs.invert_x)
 
 func rotate_basis() -> void:
 	body.transform.basis = Basis()

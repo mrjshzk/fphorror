@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://d4ckdamf57xv4"]
+
+[ext_resource type="ArrayMesh" uid="uid://brm8qntmq6g4e" path="res://scenes/items/flashlight/flashlight_mesh.tres" id="1_l6we1"]
+[ext_resource type="Script" path="res://scenes/resources/item.gd" id="2_mds58"]
+
+[resource]
+script = ExtResource("2_mds58")
+name = &"FlashlightFlipped"
+mesh = ExtResource("1_l6we1")
+position = Vector3(-0.49, -0.475, -0.591)
+rotation = Vector3(0.0605137, -0.0470295, -0.00380018)
+scale = Vector3(4.25, 4.25, 4.25)
+physical_scene = "res://scenes/items/flashlight/flashlight_flipped.tscn"

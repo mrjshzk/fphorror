@@ -1,0 +1,17 @@
+[configuration]
+
+entry_symbol = "gdextension_init"
+compatibility_minimum = 4.2
+
+[libraries]
+
+macos.debug = "bin/libstairs_character.macos.debug.framework"
+macos.release = "bin/libstairs_character.macos.release.framework"
+windows.debug.x86_64 = "bin/libstairs_character.windows.debug.x86_64.dll"
+windows.release.x86_64 = "bin/libstairs_character.windows.release.x86_64.dll"
+linux.debug.x86_64 = "bin/libstairs_character.linux.debug.x86_64.so"
+linux.release.x86_64 = "bin/libstairs_character.linux.release.x86_64.so"
+linux.debug.arm64 = "bin/libstairs_character.linux.debug.arm64.so"
+linux.release.arm64 = "bin/libstairs_character.linux.release.arm64.so"
+linux.debug.rv64 = "bin/libstairs_character.linux.debug.rv64.so"
+linux.release.rv64 = "bin/libstairs_character.linux.release.rv64.so"
