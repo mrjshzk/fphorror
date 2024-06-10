@@ -30,8 +30,15 @@ height = 0.3
 radius = 0.3
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("collider") groups=["Player"]]
+collision_mask = 3
 script = ExtResource("1_47ku8")
 collider = NodePath("CollisionShape3D")
+
+[node name="SaveManager" type="Node" parent="." node_paths=PackedStringArray("player", "camera", "item_manager")]
+script = ExtResource("6_payh0")
+player = NodePath("..")
+camera = NodePath("../Camera3D")
+item_manager = NodePath("../Camera3D/ItemManager")
 
 [node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("body")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.67, 0)
@@ -49,10 +56,15 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 script = ExtResource("7_uhx7b")
 
-[node name="SwayManager" type="Node3D" parent="Camera3D/ItemManager"]
+[node name="SwayManager" type="Node3D" parent="Camera3D/ItemManager" node_paths=PackedStringArray("player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 script = ExtResource("5_i3737")
+player = NodePath("../../..")
+bob_amount = 0.01
+sway_rotation = Vector3(0.2, 0.2, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Camera3D/ItemManager/SwayManager"]
+transform = Transform3D(1, 1.00539e-10, 0, -1.00539e-10, 1, 0, 0, 0, 1, 0, 0, 0)
 skeleton = NodePath("../..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -75,8 +87,3 @@ script = ExtResource("3_ai0ff")
 
 [node name="PauseMenu" parent="PauseComponent" instance=ExtResource("4_j7icc")]
 visible = false
-
-[node name="SaveManager" type="Node" parent="." node_paths=PackedStringArray("player", "camera")]
-script = ExtResource("6_payh0")
-player = NodePath("..")
-camera = NodePath("../Camera3D")

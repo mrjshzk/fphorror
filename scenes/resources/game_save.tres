@@ -1,10 +1,14 @@
-[gd_resource type="Resource" script_class="GameSave" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="GameSave" load_steps=4 format=3]
 
-[ext_resource type="Script" path="res://scenes/resources/GameSave.gd" id="1_eov0m"]
+[ext_resource type="Resource" path="res://scenes/items/flashlight/flashlight.tres" id="1_jrrot"]
+[ext_resource type="Resource" path="res://scenes/items/saw/saw.tres" id="2_6hd3a"]
+[ext_resource type="Script" path="res://scenes/resources/GameSave.gd" id="2_ss5lh"]
 
 [resource]
-script = ExtResource("1_eov0m")
-player_global_position = Vector3(-1.90884, 0.0508732, 2.6555)
-camera_rotation_x = -0.75853
-player_rotation_y = -108.385
+script = ExtResource("2_ss5lh")
+player_global_position = Vector3(2.7422, 0.0509876, -4.71205)
+camera_rotation_x = -0.30353
+player_rotation_y = -77.04
 collider_height = 1.8
+items = Array[Resource("res://scenes/resources/item.gd")]([ExtResource("1_jrrot"), ExtResource("2_6hd3a"), null, null])
+current_item = ExtResource("1_jrrot")

@@ -1,11 +1,11 @@
 [gd_resource type="Resource" script_class="UserPreferences" load_steps=2 format=3]
 
-[ext_resource type="Script" path="res://scenes/resources/UserPreferences.gd" id="1_k7bq3"]
+[ext_resource type="Script" path="res://scenes/resources/UserPreferences.gd" id="1_av677"]
 
 [resource]
-script = ExtResource("1_k7bq3")
+script = ExtResource("1_av677")
 fullscreen = false
-sound_volume = 0.3
+sound_volume = 0.0888158
 sensitivity_x = 1.0
 invert_x = false
 sensitivity_y = 1.0

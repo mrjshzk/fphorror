@@ -8,6 +8,8 @@ const path : StringName = &"user://game_save.tres"
 @export var camera_rotation_x: float
 @export var player_rotation_y: float
 @export var collider_height: float = 1.9
+@export var items: Array[Item] = [null, null, null, null]
+@export var current_item: Item = null
 
 static func create_or_load() -> GameSave:
 	var save_res : GameSave

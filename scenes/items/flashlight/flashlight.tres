@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="Item" load_steps=7 format=3 uid="uid://bhuujxrykh6fx"]
+[gd_resource type="Resource" script_class="Item" load_steps=8 format=3 uid="uid://bhuujxrykh6fx"]
 
 [ext_resource type="Shader" path="res://shaders/weapon_clipping_fix.gdshader" id="1_alkpu"]
+[ext_resource type="PackedScene" uid="uid://ytlslj0uo247" path="res://scenes/items/flashlight/flashlight_behavior.tscn" id="1_grydr"]
 [ext_resource type="Texture2D" uid="uid://cybnd135sjd3v" path="res://scenes/items/flashlight/Torch_2_256.png" id="2_x8ka1"]
 [ext_resource type="Script" path="res://scenes/resources/item.gd" id="4_ks1nx"]
 
@@ -47,10 +48,11 @@ shadow_mesh = SubResource("ArrayMesh_arieo")
 [resource]
 script = ExtResource("4_ks1nx")
 name = &"Flashlight"
+unique_name = &"Flashlight"
 mesh = SubResource("ArrayMesh_ms2r6")
-position = Vector3(0.490284, -0.475, -0.591)
-rotation = Vector3(0.0605137, -0.0470295, -0.00380018)
-scale = Vector3(4.25, 4.25, 4.25)
+position = Vector3(0.188738, -0.118153, -0.16275)
+rotation = Vector3(0.0610865, 1.51865e-11, -0.00349066)
+scale = Vector3(1.176, 1.176, 1.176)
 physical_scene = "res://scenes/items/flashlight/flashlight.tscn"
 sway_min = Vector2(-20, -20)
 sway_max = Vector2(20, 20)
@@ -58,3 +60,5 @@ sway_speed_position = 0.01
 sway_speed_rotation = 0.01
 sway_amount_position = 0.01
 sway_amount_rotation = 10
+behaviour_scene = ExtResource("1_grydr")
+interest_point = Vector3(0, 0, -0.05)

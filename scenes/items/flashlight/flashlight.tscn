@@ -45,7 +45,7 @@ shadow_mesh = SubResource("ArrayMesh_5u0k5")
 [sub_resource type="BoxShape3D" id="BoxShape3D_6yvdl"]
 size = Vector3(0.18, 0.46, 0.145)
 
-[node name="PickableItem" type="RigidBody3D"]
+[node name="Flashlight" type="RigidBody3D"]
 axis_lock_angular_z = true
 mass = 20.0
 max_contacts_reported = 10

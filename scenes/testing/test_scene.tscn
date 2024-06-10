@@ -1,11 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://ceqpp14b78eqx"]
+[gd_scene load_steps=14 format=3 uid="uid://ceqpp14b78eqx"]
 
 [ext_resource type="PackedScene" uid="uid://l53288gtqofx" path="res://scenes/player/player.tscn" id="1_blhnu"]
-[ext_resource type="Theme" uid="uid://byklgp83qr8he" path="res://scenes/ui/ui_theme.tres" id="4_rluw4"]
+[ext_resource type="Texture2D" uid="uid://bpc2fpm5jhx22" path="res://assets/hdris/kloppenheim_07_puresky_2k.hdr" id="3_q035r"]
+[ext_resource type="PackedScene" uid="uid://br8c652ty8vfx" path="res://scenes/items/saw/saw.tscn" id="4_dm423"]
 [ext_resource type="PackedScene" uid="uid://bm3llao61qxkf" path="res://scenes/items/flashlight/flashlight.tscn" id="4_ycsj2"]
-[ext_resource type="Script" path="res://scenes/testing/Label.gd" id="5_dnlcs"]
-[ext_resource type="PackedScene" uid="uid://ckjsfsc2lyusq" path="res://scenes/items/flashlight/flashlight_flipped.tscn" id="5_ttacd"]
-[ext_resource type="PackedScene" uid="uid://btqdnuasgo5lc" path="res://scenes/items/flashlight/flashlight_middle.tscn" id="6_a0123"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ffxwf"]
 size = Vector3(50, 0.1, 50)
@@ -23,11 +21,23 @@ data = PackedVector3Array(0, 1, 0, 0, 1, 0, 0, 0.9924, -0.0868, 0, 1, 0, -0.0085
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_pg8ob"]
 data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
 
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_3oi5e"]
+panorama = ExtResource("3_q035r")
+
+[sub_resource type="Sky" id="Sky_y5rwe"]
+sky_material = SubResource("PanoramaSkyMaterial_3oi5e")
+
+[sub_resource type="Environment" id="Environment_lhuqa"]
+background_mode = 2
+sky = SubResource("Sky_y5rwe")
+volumetric_fog_enabled = true
+
 [node name="TestScene" type="Node3D" groups=["Level"]]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
 shadow_enabled = true
+editor_only = true
 
 [node name="Player" parent="." instance=ExtResource("1_blhnu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.97984, 0)
@@ -123,25 +133,11 @@ skeleton = NodePath("../..")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node/MeshInstance3D8/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_pg8ob")
 
-[node name="Label" type="Label" parent="."]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -20.0
-offset_top = -23.0
-offset_right = 20.0
-grow_horizontal = 2
-grow_vertical = 0
-theme = ExtResource("4_rluw4")
-script = ExtResource("5_dnlcs")
+[node name="Flashlight" parent="." instance=ExtResource("4_ycsj2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.260675, 0.1225, -1.34359)
 
-[node name="PickableItem" parent="." instance=ExtResource("4_ycsj2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.125, 0)
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_lhuqa")
 
-[node name="PickableItem2" parent="." instance=ExtResource("5_ttacd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.62769, 0.125, 0.236699)
-
-[node name="PickableItem3" parent="." instance=ExtResource("6_a0123")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.745664, 0.125, -0.0574346)
+[node name="Saw" parent="." instance=ExtResource("4_dm423")]
+transform = Transform3D(2.98023e-08, 1, 0, -1, 2.98023e-08, 0, 0, 0, 1, 0, 0.0751943, 0)

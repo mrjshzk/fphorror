@@ -2,7 +2,7 @@ class_name Player
 extends StairsCharacter
 
 
-const SPEED = 5.0
+const SPEED = 4.0
 const JUMP_VELOCITY = 4.5
 @onready var shapecast: ShapeCast3D = $ShapeCast3D
 

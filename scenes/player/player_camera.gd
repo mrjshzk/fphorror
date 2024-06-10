@@ -4,7 +4,7 @@ class_name FPSCamera extends Camera3D
 @onready var prefs := UserPreferences.create_or_load()
 
 
-@export var body : Node3D
+@export var body : Player
 
 # sensitivity options and invert
 @export_category("Rotation Settings")
@@ -14,6 +14,9 @@ class_name FPSCamera extends Camera3D
 @export var invert_x: bool = false
 @export var invert_y: bool = false
 
+@export_category("Bobbing")
+@export var bob_amount : float = 0.02
+@export var bob_freq : float = 0.01
 # accumulators
 @onready var rot_x = save.player_rotation_y
 @onready var rot_y = save.camera_rotation_x:
@@ -23,6 +26,8 @@ class_name FPSCamera extends Camera3D
 @onready var body_target_basis : Basis = body.basis
 @onready var self_target_basis : Basis = self.basis
 
+
+@onready var start_pos : Vector3 = position
 func _ready():
 	assert(body != null, "body is null")
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -38,10 +43,10 @@ func _input(event):
 
 func _physics_process(_delta: float) -> void:
 	var controller_motion := Input.get_vector("look_up", "look_down", "look_left", "look_right")
-	
 	add_rot_x(controller_motion.y, 0.1)
 	add_rot_y(controller_motion.x, 0.1)
 	rotate_basis()
+	bob(body.velocity.length_squared(), _delta)
 
 func add_rot_x(val: float, sens_override: float) -> void:
 	rot_x += val * sens_override * prefs.sensitivity_x * Utils.bool_to_one(prefs.invert_x)
@@ -54,3 +59,12 @@ func rotate_basis() -> void:
 	transform.basis = Basis()
 	body.rotate_object_local(Vector3(0,1,0), rot_x)
 	rotate_object_local(Vector3(1,0,0), rot_y)
+
+func bob(vel : float, delta):
+	if vel > 0 and body.is_on_floor():
+		position.y = lerpf(position.y, start_pos.y + sin(Time.get_ticks_msec() * bob_freq) * bob_amount, 10 * delta)
+		position.x = lerpf(position.x, start_pos.x + sin(Time.get_ticks_msec() * bob_freq * 0.5) * bob_amount, 10 * delta)
+		
+	else:
+		position.y = lerpf(position.y, start_pos.y, 10 * delta)
+		position.x = lerpf(position.x, start_pos.x, 10 * delta)
