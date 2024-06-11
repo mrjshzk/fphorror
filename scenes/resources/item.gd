@@ -15,5 +15,6 @@ extends Resource
 
 
 @export_category("Behaviour")
+@export var phantom_data: Dictionary
 @export var behaviour_scene: PackedScene
 @export var interest_point := Vector3.ZERO

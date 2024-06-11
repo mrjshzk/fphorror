@@ -55,9 +55,14 @@ script = ExtResource("3_2f1aa")
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 script = ExtResource("7_uhx7b")
+load_ease = 1
+load_transition = 1
+load_duration = 0.3
+unload_ease = 3
+unload_transition = 4
+unload_duration = 0.5
 
 [node name="SwayManager" type="Node3D" parent="Camera3D/ItemManager" node_paths=PackedStringArray("player")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 script = ExtResource("5_i3737")
 player = NodePath("../../..")
 bob_amount = 0.01

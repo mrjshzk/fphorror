@@ -21,18 +21,17 @@ var items : Array[Item] = [null, null, null, null]
 		if mesh:
 			for child in mesh.get_children():
 				child.queue_free()
-		
 		if mesh:
 			for child in mesh.get_children():
 				child.queue_free()
 			if item.behaviour_scene:
 				var behaviour_scene = item.behaviour_scene.instantiate()
-				behaviour_scene.position = item.interest_point
+				behaviour_scene.item_res = item
 				mesh.add_child(behaviour_scene)
 			
 		if Engine.is_editor_hint() and value != null:
 			load_item(value)
-
+	
 var can_swap := true
 
 signal weapon_unloaded
@@ -51,8 +50,8 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	if item != null and event.is_action_pressed("drop"):
 		var scene : PackedScene = load(item.physical_scene)
-		var rb : RigidBody3D = scene.instantiate()
-		
+		var rb : PickableItem = scene.instantiate()
+		rb.item_resource = item
 		var level: Node3D = get_tree().get_first_node_in_group("Level")
 		## connect signal to apply impulse on child entered
 		level.child_entered_tree.connect(
@@ -60,6 +59,7 @@ func _input(event: InputEvent) -> void:
 				if not node is RigidBody3D: return
 				rb.global_position = self.global_position 
 				rb.global_rotation = self.global_rotation
+				print(node.item_resource.phantom_data)
 				rb.call_deferred("apply_central_impulse", -get_parent().basis.z), CONNECT_ONE_SHOT)
 		
 		## add rigid body
@@ -80,18 +80,34 @@ func _input(event: InputEvent) -> void:
 		elif event.is_action_pressed("item4"):
 			swap_item(3)
 
+var load_tween : Tween
+@export_category("Loading Item")
+@export var load_ease: Tween.EaseType
+@export var load_transition: Tween.TransitionType
+@export var load_duration: float = 0.20
 func load_item(i: Item) -> void:
 	item = i
 	mesh.mesh = i.mesh
 	rotation = i.rotation
 	mesh.scale = i.scale
-	create_tween().tween_property(self, "position", i.position, .15).finished.connect(
+	load_tween = create_tween()
+	load_tween.set_ease(load_ease)
+	load_tween.set_trans(load_transition)
+	load_tween.tween_property(self, "position", i.position, load_duration).finished.connect(
 		func():
 			can_swap = true
 	)
 
+var unload_tween: Tween
+@export_category("Unloading item")
+@export var unload_ease: Tween.EaseType
+@export var unload_transition: Tween.TransitionType
+@export var unload_duration: float = 0.20
 func unload_item() -> void:
-	create_tween().tween_property(self, "position", Vector3.DOWN, .15).finished.connect(
+	unload_tween = create_tween()
+	unload_tween.set_ease(unload_ease)
+	unload_tween.set_trans(unload_transition)
+	unload_tween.tween_property(self, "position", position + Vector3.DOWN, unload_duration).finished.connect(
 		func():
 			weapon_unloaded.emit()
 	)
