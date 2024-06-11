@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://l53288gtqofx"]
+[gd_scene load_steps=14 format=3 uid="uid://l53288gtqofx"]
 
 [ext_resource type="Script" path="res://scenes/player/player_character.gd" id="1_47ku8"]
 [ext_resource type="Script" path="res://scenes/player/player_camera.gd" id="2_2qfw2"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://scenes/player/sway_manager.gd" id="5_i3737"]
 [ext_resource type="Script" path="res://scenes/player/components/SaveManager.gd" id="6_payh0"]
 [ext_resource type="Script" path="res://scenes/player/item_holder.gd" id="7_uhx7b"]
+[ext_resource type="Texture2D" uid="uid://d3uyec1hfweeo" path="res://assets/ui/crosshair054.png" id="9_7hllo"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_nrcec"]
 margin = 0.01
@@ -92,3 +93,19 @@ script = ExtResource("3_ai0ff")
 
 [node name="PauseMenu" parent="PauseComponent" instance=ExtResource("4_j7icc")]
 visible = false
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -17.0
+offset_top = -44.5
+offset_right = 17.0
+offset_bottom = 44.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_7hllo")
+expand_mode = 5
+stretch_mode = 5

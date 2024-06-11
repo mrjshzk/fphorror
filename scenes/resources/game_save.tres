@@ -4,8 +4,8 @@
 
 [resource]
 script = ExtResource("2_ss5lh")
-player_global_position = Vector3(2.8511, 0.0506783, -2.15356)
-camera_rotation_x = -0.56853
-player_rotation_y = -111.535
+player_global_position = Vector3(-0.0340401, 0.0500068, -0.593998)
+camera_rotation_x = -0.58353
+player_rotation_y = -120.365
 collider_height = 1.8
 items = Array[Resource("res://scenes/resources/item.gd")]([null, null, null, null])

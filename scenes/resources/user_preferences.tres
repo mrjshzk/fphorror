@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_av677")
 fullscreen = false
-sound_volume = 0.0888158
+sound_volume = 1.0
 sensitivity_x = 1.0
 invert_x = false
 sensitivity_y = 1.0
