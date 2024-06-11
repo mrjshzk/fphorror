@@ -1,9 +1,6 @@
 class_name Item
 extends Resource
 
-
-
-
 @export var name: StringName
 @export var unique_name: StringName
 @export var mesh: Mesh

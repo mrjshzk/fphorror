@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://m8jahjixbqqx"]
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://m8jahjixbqqx"]
 
 [ext_resource type="Script" path="res://scenes/resources/item.gd" id="1_cp6fd"]
+[ext_resource type="PackedScene" uid="uid://c6q0hrwbqbpx3" path="res://scenes/items/saw/saw_behaviour.tscn" id="1_oirv7"]
 [ext_resource type="ArrayMesh" uid="uid://hrlcsamxeh1l" path="res://scenes/items/saw/saw_mesh.mesh" id="1_uoo4l"]
 
 [resource]
@@ -12,4 +13,6 @@ position = Vector3(0.0855394, -0.0464188, -0.0864748)
 rotation = Vector3(-0.992778, 0, 0)
 scale = Vector3(4.9, 4.9, 4.9)
 physical_scene = "res://scenes/items/saw/saw.tscn"
+phantom_data = {}
+behaviour_scene = ExtResource("1_oirv7")
 interest_point = Vector3(0, 0, 0)

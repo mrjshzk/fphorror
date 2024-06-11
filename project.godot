@@ -14,6 +14,7 @@ config/name="fps_horror"
 config/tags=PackedStringArray("in_development")
 run/main_scene="res://scenes/testing/test_scene.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
+run/max_fps=144
 config/icon="res://icon.svg"
 
 [autoload]
@@ -28,11 +29,10 @@ window/size/viewport_width=1280
 window/size/viewport_height=720
 window/size/always_on_top=true
 window/stretch/mode="viewport"
-mouse_cursor/custom_image="res://assets/icons/cursor.png"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg", "res://addons/reset_saves_&_preferences/plugin.cfg")
+enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg", "res://addons/qodot/plugin.cfg", "res://addons/reset_saves_&_preferences/plugin.cfg")
 
 [input]
 

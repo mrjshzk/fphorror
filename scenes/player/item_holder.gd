@@ -5,6 +5,8 @@ extends Marker3D
 var items : Array[Item] = [null, null, null, null]
 @onready var mesh: MeshInstance3D = $SwayManager/MeshInstance3D
 @onready var sway_manager: Node3D = $SwayManager
+
+@onready var level: Node3D = get_tree().get_first_node_in_group("Level") ## KEEPINMIND - talvez arranjar uma solucao melhor para droppar
 @export var item: Item:
 	set(value):
 		if value == null:
@@ -17,19 +19,16 @@ var items : Array[Item] = [null, null, null, null]
 			rotation = Vector3.ZERO
 			item = null
 			return
+		
 		item = value
-		if mesh:
+		if mesh and not Engine.is_editor_hint():
 			for child in mesh.get_children():
 				child.queue_free()
-		if mesh:
-			for child in mesh.get_children():
-				child.queue_free()
-			if item.behaviour_scene:
+			if item.behaviour_scene != null:
 				var behaviour_scene = item.behaviour_scene.instantiate()
-				behaviour_scene.item_res = item
 				mesh.add_child(behaviour_scene)
 			
-		if Engine.is_editor_hint() and value != null:
+		if Engine.is_editor_hint():
 			load_item(value)
 	
 var can_swap := true
@@ -42,6 +41,19 @@ func _ready() -> void:
 			GlobalSignals.receive_items.emit(items)
 	)
 	
+	mesh.child_entered_tree.connect(
+		func(node: Node):
+			if "item_res" in node:
+				node.set_deferred("item_res", item))
+				
+	
+	level.child_entered_tree.connect(
+		func(node: Node):
+			if not node is PickableItem: return
+			node.global_position = self.global_position 
+			node.global_rotation = self.global_rotation
+			node.call_deferred("apply_central_impulse", -get_parent().basis.z))
+	
 	## KEEPINMIND: isto so funciona porque SaveManager está em cima disto na scenetree
 	if item:
 		load_item(item)
@@ -53,14 +65,9 @@ func _input(event: InputEvent) -> void:
 		var rb : PickableItem = scene.instantiate()
 		rb.item_resource = item
 		var level: Node3D = get_tree().get_first_node_in_group("Level")
+		GlobalSignals.item_dropped.emit(item)
 		## connect signal to apply impulse on child entered
-		level.child_entered_tree.connect(
-			func(node: Node):
-				if not node is RigidBody3D: return
-				rb.global_position = self.global_position 
-				rb.global_rotation = self.global_rotation
-				print(node.item_resource.phantom_data)
-				rb.call_deferred("apply_central_impulse", -get_parent().basis.z), CONNECT_ONE_SHOT)
+		
 		
 		## add rigid body
 		level.call_deferred("add_child", rb)
@@ -90,6 +97,9 @@ func load_item(i: Item) -> void:
 	mesh.mesh = i.mesh
 	rotation = i.rotation
 	mesh.scale = i.scale
+	if Engine.is_editor_hint():
+		position = i.position
+		return
 	load_tween = create_tween()
 	load_tween.set_ease(load_ease)
 	load_tween.set_trans(load_transition)
@@ -97,6 +107,7 @@ func load_item(i: Item) -> void:
 		func():
 			can_swap = true
 	)
+	GlobalSignals.item_swapped.emit(i)
 
 var unload_tween: Tween
 @export_category("Unloading item")
@@ -128,6 +139,7 @@ func swap_item(item_idx_to_swap: int):
 	if items[item_idx_to_swap] == item or items[item_idx_to_swap] == null:
 		return
 	can_swap = false
+	GlobalSignals.item_unloaded.emit(item)
 	unload_item()
 	await weapon_unloaded
 	load_item(items[item_idx_to_swap])

@@ -1,0 +1,14 @@
+[remap]
+
+importer="qodot.map"
+type="Resource"
+uid="uid://yv3ayexllsvm"
+path="res://.godot/imported/testing.map-d89649d91c1abdc680638ebb32d6a3e7.tres"
+
+[deps]
+
+source_file="res://assets/maps/testing.map"
+dest_files=["res://.godot/imported/testing.map-d89649d91c1abdc680638ebb32d6a3e7.tres"]
+
+[params]
+
