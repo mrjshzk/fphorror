@@ -25,20 +25,20 @@ func _input(event: InputEvent) -> void:
 func _physics_process(delta: float) -> void:
 	if is_holding:
 		if object != null:
-			print(Vector3(0,1,0) * -get_speed_add() * 20)
-			object.apply_torque(Vector3(0,1,0) * -get_speed_add() * 20)
+			print(Vector3(0,1,0) * get_speed_add() * 20)
+			object.apply_torque(Vector3(0,1,0) * get_speed_add() * 20)
 
 func _process(delta: float) -> void:
 	mouse_input = Vector2.ZERO
 
 # KEEPINMIND
 func get_speed_add() -> float:
-	var vBodyCenter := self.transform * object.center_of_mass
+	var vBodyCenter := object.transform * object.center_of_mass
 	var jointToBody := (vBodyCenter - object.get_parent_node_3d().global_position).normalized()
-	var vUp := self.transform.basis.y
-	var vRight := self.transform.basis.x
-	var vForward := -self.transform.basis.z
-	var push_amount = (vUp + vForward) * mouse_input.y + vRight * -mouse_input.x
+	var vUp := self.global_transform.basis.y
+	var vRight := self.global_transform.basis.x
+	var vForward := -self.global_transform.basis.z
+	var push_amount = (vUp + vForward) * -mouse_input.y + vRight * -mouse_input.x
 	var vPushRotateDir = jointToBody.cross(push_amount)
 	return vPushRotateDir.dot(Vector3(0,1,0))
 	
