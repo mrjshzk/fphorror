@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://ceqpp14b78eqx"]
+[gd_scene load_steps=63 format=3 uid="uid://ceqpp14b78eqx"]
 
 [ext_resource type="PackedScene" uid="uid://l53288gtqofx" path="res://scenes/player/player.tscn" id="1_blhnu"]
 [ext_resource type="Texture2D" uid="uid://bpc2fpm5jhx22" path="res://assets/hdris/kloppenheim_07_puresky_2k.hdr" id="3_q035r"]
@@ -29,6 +29,7 @@
 [ext_resource type="Texture2D" uid="uid://c0p7c0ygc8rkd" path="res://assets/textures/concrete_wall_12.png" id="26_gss75"]
 [ext_resource type="Theme" uid="uid://byklgp83qr8he" path="res://scenes/ui/ui_theme.tres" id="28_4yjbo"]
 [ext_resource type="Script" path="res://scenes/testing/Label.gd" id="29_ptof7"]
+[ext_resource type="PackedScene" uid="uid://bycig8nyyo1aq" path="res://scenes/testing/door.tscn" id="30_ydjio"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_u6tvi"]
 shader = ExtResource("24_5yay3")
@@ -308,3 +309,6 @@ light_energy = 0.5
 light_specular = 0.0
 shadow_enabled = true
 omni_range = 55.222
+
+[node name="Door" parent="." instance=ExtResource("30_ydjio")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.49405, 1, -7.04838)

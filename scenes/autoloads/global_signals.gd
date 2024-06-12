@@ -8,3 +8,5 @@ signal item_dropped(dropped_item: Item) ## calls before dropping item
 signal request_items ## call this to request the inventory
 signal receive_items(items: Array[Item]) ## this will send the inventory 
 
+signal lock_camera
+signal unlock_camera

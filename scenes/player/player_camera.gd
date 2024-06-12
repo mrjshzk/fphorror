@@ -30,6 +30,13 @@ class_name FPSCamera extends Camera3D
 @onready var start_pos : Vector3 = position
 func _ready():
 	assert(body != null, "body is null")
+	GlobalSignals.lock_camera.connect(
+		func(): can_rotate = false
+	)
+	
+	GlobalSignals.lock_camera.connect(
+		func(): can_rotate = true
+	)
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	Input.use_accumulated_input = false
 	rotate_basis.call_deferred()
@@ -42,6 +49,7 @@ func _input(event):
 		add_rot_y(event.relative.y, 0.005)
 
 func _physics_process(_delta: float) -> void:
+	if not can_rotate: return
 	var controller_motion := Input.get_vector("look_up", "look_down", "look_left", "look_right")
 	add_rot_x(controller_motion.y, 0.1)
 	add_rot_y(controller_motion.x, 0.1)

@@ -1,17 +1,16 @@
-[gd_resource type="Resource" script_class="GameSave" load_steps=11 format=3]
+[gd_resource type="Resource" script_class="GameSave" load_steps=10 format=3]
 
 [ext_resource type="Script" path="res://scenes/resources/GameSave.gd" id="1_2fblr"]
-[ext_resource type="Resource" path="res://scenes/items/saw/saw.tres" id="1_xyhqe"]
-[ext_resource type="PackedScene" path="res://scenes/items/flashlight/flashlight_behavior.tscn" id="2_a3aeu"]
-[ext_resource type="Shader" path="res://shaders/weapon_clipping_fix.gdshader" id="3_j0ajq"]
-[ext_resource type="Texture2D" path="res://scenes/items/flashlight/Torch_2_256.png" id="4_bunao"]
-[ext_resource type="Script" path="res://scenes/resources/item.gd" id="5_1h8k3"]
+[ext_resource type="PackedScene" path="res://scenes/items/flashlight/flashlight_behavior.tscn" id="2_wmo5k"]
+[ext_resource type="Shader" path="res://shaders/weapon_clipping_fix.gdshader" id="3_60gyu"]
+[ext_resource type="Texture2D" path="res://scenes/items/flashlight/Torch_2_256.png" id="4_vie6c"]
+[ext_resource type="Script" path="res://scenes/resources/item.gd" id="5_6133w"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vldwf"]
 render_priority = 0
-shader = ExtResource("3_j0ajq")
+shader = ExtResource("3_60gyu")
 shader_parameter/albedo = Color(1, 1, 1, 1)
-shader_parameter/texture_albedo = ExtResource("4_bunao")
+shader_parameter/texture_albedo = ExtResource("4_vie6c")
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_arieo"]
 _surfaces = [{
@@ -48,7 +47,7 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_arieo")
 
 [sub_resource type="Resource" id="Resource_n5ad1"]
-script = ExtResource("5_1h8k3")
+script = ExtResource("5_6133w")
 name = &"Flashlight"
 unique_name = &"Flashlight"
 mesh = SubResource("ArrayMesh_ms2r6")
@@ -59,14 +58,14 @@ physical_scene = "res://scenes/items/flashlight/flashlight.tscn"
 phantom_data = {
 "visible": true
 }
-behaviour_scene = ExtResource("2_a3aeu")
+behaviour_scene = ExtResource("2_wmo5k")
 interest_point = Vector3(0, 0, -0.05)
 
 [resource]
 script = ExtResource("1_2fblr")
-player_global_position = Vector3(-0.391638, 0.932136, -4.17653)
-camera_rotation_x = -0.32353
-player_rotation_y = -289.585
-collider_height = 1.66666
-items = Array[ExtResource("5_1h8k3")]([SubResource("Resource_n5ad1"), ExtResource("1_xyhqe"), null, null])
+player_global_position = Vector3(-3.52954, 1.00087, -6.03148)
+camera_rotation_x = -0.56353
+player_rotation_y = -426.98
+collider_height = 1.8
+items = Array[ExtResource("5_6133w")]([null, SubResource("Resource_n5ad1"), null, null])
 current_item = SubResource("Resource_n5ad1")

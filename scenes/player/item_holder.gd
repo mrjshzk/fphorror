@@ -22,6 +22,7 @@ var items : Array[Item] = [null, null, null, null]
 		
 		item = value
 		if mesh and not Engine.is_editor_hint():
+			
 			for child in mesh.get_children():
 				child.queue_free()
 			if item.behaviour_scene != null:
@@ -55,6 +56,11 @@ func _ready() -> void:
 			node.call_deferred("apply_central_impulse", -get_parent().basis.z))
 	
 	## KEEPINMIND: isto so funciona porque SaveManager está em cima disto na scenetree
+	if item == null:
+		for it in items:
+			if it != null:
+				item = items[items.find(it)]
+				
 	if item:
 		load_item(item)
 
@@ -93,7 +99,9 @@ var load_tween : Tween
 @export var load_transition: Tween.TransitionType
 @export var load_duration: float = 0.20
 func load_item(i: Item) -> void:
-	item = i
+	print("Loading item: %s" % i.name)
+	if not Engine.is_editor_hint():
+		item = i ## KEEPINMIND fix recursion in editor
 	mesh.mesh = i.mesh
 	rotation = i.rotation
 	mesh.scale = i.scale
@@ -114,7 +122,10 @@ var unload_tween: Tween
 @export var unload_ease: Tween.EaseType
 @export var unload_transition: Tween.TransitionType
 @export var unload_duration: float = 0.20
-func unload_item() -> void:
+func unload_item() -> bool:
+	GlobalSignals.item_unloaded.emit(item)
+	if item == null:
+		return false
 	unload_tween = create_tween()
 	unload_tween.set_ease(unload_ease)
 	unload_tween.set_trans(unload_transition)
@@ -122,24 +133,26 @@ func unload_item() -> void:
 		func():
 			weapon_unloaded.emit()
 	)
+	return true
 
 func add_item(i: Item) -> void:
 	for _item in items:
 		if _item == null:
 			items[items.find(_item)] = i
+			if not unload_item():
+				load_item(i)
+			else:
+				await weapon_unloaded
+			load_item(i)
 			break
-	if items.size() == 1:
-		load_item(i)
-	else:
-		unload_item()
-		await weapon_unloaded
-		load_item(i)
+		
+		
+		
 
 func swap_item(item_idx_to_swap: int):
 	if items[item_idx_to_swap] == item or items[item_idx_to_swap] == null:
 		return
 	can_swap = false
-	GlobalSignals.item_unloaded.emit(item)
 	unload_item()
 	await weapon_unloaded
 	load_item(items[item_idx_to_swap])

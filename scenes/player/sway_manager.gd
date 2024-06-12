@@ -22,6 +22,16 @@ var input_x: int = 0
 @export var rotation_max_angle: float = 100 ## em degraus
 @export var rotation_speed := 5.0
 
+@onready var can_sway: bool = true
+
+func _ready() -> void:
+	GlobalSignals.lock_camera.connect(
+		func(): can_sway = false
+	)
+	
+	GlobalSignals.lock_camera.connect(
+		func(): can_sway = true
+	)
 
 func _unhandled_input(event)-> void:
 	if event is InputEventMouseMotion:
@@ -32,14 +42,14 @@ func _process(delta: float) -> void:
 	if mouse_input == null: return
 
 	# TODO: usar smoothstep
-
-	if absf(mouse_input.x) >= sway_treshold:
-		var next_rotation := lerpf(rotation.y, sway_rotation.y * signf(-mouse_input.x), sway_lerp * delta)
-		rotation.y = next_rotation
-	
-	if absf(mouse_input.y) >= sway_treshold:
-		var next_rotation := lerpf(rotation.x, sway_rotation.x * signf(-mouse_input.y), sway_lerp * delta)
-		rotation.x = next_rotation
+	if can_sway:
+		if absf(mouse_input.x) >= sway_treshold:
+			var next_rotation := lerpf(rotation.y, sway_rotation.y * signf(-mouse_input.x), sway_lerp * delta)
+			rotation.y = next_rotation
+		
+		if absf(mouse_input.y) >= sway_treshold:
+			var next_rotation := lerpf(rotation.x, sway_rotation.x * signf(-mouse_input.y), sway_lerp * delta)
+			rotation.x = next_rotation
 	
 	if absf(mouse_input.x) == 0:
 		rotation.y = lerpf(rotation.y, sway_normal.y, sway_lerp * 0.5 * delta)
