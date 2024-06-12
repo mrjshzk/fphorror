@@ -4,8 +4,8 @@
 
 [resource]
 script = ExtResource("1_2fblr")
-player_global_position = Vector3(-3.95211, 1.00087, -8.32817)
-camera_rotation_x = -0.16853
-player_rotation_y = -417.82
-collider_height = 1.8
+player_global_position = Vector3(-3.37204, 0.916762, -5.97145)
+camera_rotation_x = -0.35853
+player_rotation_y = -426.85
+collider_height = 1.63333
 items = Array[Resource("res://scenes/resources/item.gd")]([null, null, null, null])
