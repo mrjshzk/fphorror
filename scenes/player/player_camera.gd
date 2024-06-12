@@ -31,18 +31,19 @@ class_name FPSCamera extends Camera3D
 func _ready():
 	assert(body != null, "body is null")
 	GlobalSignals.lock_camera.connect(
-		func(): can_rotate = false
+		func(): can_rotate = false; print("locked camera")
 	)
 	
-	GlobalSignals.lock_camera.connect(
-		func(): can_rotate = true
+	GlobalSignals.unlock_camera.connect(
+		func(): can_rotate = true; print("unlocked camera")
 	)
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	Input.use_accumulated_input = false
 	rotate_basis.call_deferred()
 
 func _input(event):
-	if not can_rotate and not Input.mouse_mode == Input.MOUSE_MODE_CAPTURED: return
+	if not can_rotate: return
+	if not Input.mouse_mode == Input.MOUSE_MODE_CAPTURED: return
 	if event is InputEventMouseMotion:
 		# modify accumulated mouse rotation
 		add_rot_x(event.relative.x, 0.005)

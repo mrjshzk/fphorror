@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://l53288gtqofx"]
+[gd_scene load_steps=15 format=3 uid="uid://l53288gtqofx"]
 
 [ext_resource type="Script" path="res://scenes/player/player_character.gd" id="1_47ku8"]
 [ext_resource type="Script" path="res://scenes/player/player_camera.gd" id="2_2qfw2"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://c45h1hwtp0nlb" path="res://scenes/ui/pause_menu/pause_menu.tscn" id="4_j7icc"]
 [ext_resource type="Script" path="res://scenes/player/sway_manager.gd" id="5_i3737"]
 [ext_resource type="Script" path="res://scenes/player/components/SaveManager.gd" id="6_payh0"]
+[ext_resource type="Script" path="res://scenes/player/door_raycast.gd" id="7_su56l"]
 [ext_resource type="Script" path="res://scenes/player/item_holder.gd" id="7_uhx7b"]
 [ext_resource type="Texture2D" uid="uid://d3uyec1hfweeo" path="res://assets/ui/crosshair054.png" id="9_7hllo"]
 
@@ -70,6 +71,11 @@ sway_rotation = Vector3(0.2, 0.2, 0)
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Camera3D/ItemManager/SwayManager"]
 transform = Transform3D(1, 1.00539e-10, 0, -1.00539e-10, 1, 0, 0, 0, 1, 0, 0, 0)
 skeleton = NodePath("../..")
+
+[node name="DoorRaycast" type="RayCast3D" parent="Camera3D"]
+target_position = Vector3(0, 0, -2)
+collision_mask = 4
+script = ExtResource("7_su56l")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
